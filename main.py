@@ -1,11 +1,16 @@
+# pyinstaller --onefile --add-data "tesseract-ocr;." main.py
+
+import sys
+import os
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image
 import pytesseract
 from docx import Document
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
+current_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+tesseract_path = os.path.join(current_dir, 'tesseract-ocr/tesseract.exe')
+pytesseract.pytesseract.tesseract_cmd = tesseract_path
 
 class JpegToDocConverter:
     def __init__(self, root):
@@ -26,12 +31,15 @@ class JpegToDocConverter:
         self.convert_button.pack(pady=10)
         self.convert_button.config(state=tk.DISABLED)
 
+        self.file_saved = False
+
     def browse_image(self):
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.jpeg;*.png")])
         if file_path:
             self.image_path = file_path
             self.label.config(text=f"Выбрано изображение: {file_path}")
             self.convert_button.config(state=tk.NORMAL)
+            self.file_saved = False
         else:
             self.label.config(text="Файл не выбран")
             self.convert_button.config(state=tk.DISABLED)
@@ -46,8 +54,10 @@ class JpegToDocConverter:
             doc.add_paragraph(text)
 
             save_path = filedialog.asksaveasfilename(defaultextension=".doc", filetypes=[("Word files", "*.doc")])
-            doc.save(save_path)
-            self.label.config(text=f"Результат сохранен в {save_path}")
+            if save_path:
+                doc.save(save_path)
+                self.label.config(text=f"Результат сохранен в {save_path}")
+                self.file_saved = True
 
 
 root = tk.Tk()
