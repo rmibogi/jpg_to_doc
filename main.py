@@ -16,7 +16,7 @@ class JpegToDocConverter:
     def create_widgets(self):
         font = ('Arial', 12)
 
-        self.label = tk.Label(self.root, text="Выберите изображение:", font=font, wraplength=600)
+        self.label = tk.Label(self.root, text="Выберите изображение", font=font, wraplength=600)
         self.label.pack(pady=10)
 
         self.browse_button = tk.Button(self.root, text="Выбрать", command=self.browse_image, font=font)
@@ -47,8 +47,6 @@ class JpegToDocConverter:
             save_path = filedialog.asksaveasfilename(defaultextension=".docx", filetypes=[("Word files", "*.docx")])
             doc.save(save_path)
             self.label.config(text=f"Результат сохранен в {save_path}")
-        else:
-            self.label.config(text="Сначала выберите изображение!")
 
 
 root = tk.Tk()
