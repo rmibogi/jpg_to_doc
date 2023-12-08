@@ -44,7 +44,7 @@ class JpegToDocConverter:
             doc = Document()
             doc.add_paragraph(text)
 
-            save_path = filedialog.asksaveasfilename(defaultextension=".docx", filetypes=[("Word files", "*.docx")])
+            save_path = filedialog.asksaveasfilename(defaultextension=".doc", filetypes=[("Word files", "*.doc")])
             doc.save(save_path)
             self.label.config(text=f"Результат сохранен в {save_path}")
 
