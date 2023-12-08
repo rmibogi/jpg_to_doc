@@ -39,7 +39,8 @@ class JpegToDocConverter:
     def convert_image_to_doc(self):
         if hasattr(self, 'image_path'):
             image = Image.open(self.image_path)
-            text = pytesseract.image_to_string(image, lang='rus')
+
+            text = pytesseract.image_to_string(image, lang='rus+eng')
 
             doc = Document()
             doc.add_paragraph(text)
