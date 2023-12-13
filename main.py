@@ -1,3 +1,5 @@
+# pyinstaller --onefile --add-data "tesseract-ocr;." main.py
+
 import sys
 import os
 import tkinter as tk
