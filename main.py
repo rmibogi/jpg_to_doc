@@ -72,6 +72,7 @@ class JpegToDocConverter:
                 self.label.config(text=f"Результат сохранен в {save_path}")
                 self.file_saved = True
 
+
     def convert_pdf_to_images(self, pdf_path):
         images = []
         doc = fitz.open(pdf_path)
