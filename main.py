@@ -13,7 +13,7 @@ pytesseract.pytesseract.tesseract_cmd = tesseract_path
 class JpegToDocConverter:
     def __init__(self, root):
         self.root = root
-        self.root.title("Image to Doc Converter")
+        self.root.title("Преобразование текста из формата jpg в формат doc")
         self.create_widgets()
 
     def create_widgets(self):
