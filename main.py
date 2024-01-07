@@ -13,7 +13,7 @@ pytesseract.pytesseract.tesseract_cmd = tesseract_path
 class JpegToDocConverter:
     def __init__(self, root):
         self.root = root
-        self.root.title("Image to Doc Converter")
+        self.root.title("Преобразование текста из формата jpg в формат doc")
         self.create_widgets()
 
     def create_widgets(self):
@@ -44,8 +44,7 @@ class JpegToDocConverter:
 
     def convert_to_doc(self):
         if hasattr(self, 'file_path'):
-            image = Image.open(self.file_path)
-            preprocessed_image = self.preprocess_image(image)
+            preprocessed_image = self.preprocess_image(self.file_path)
             text = pytesseract.image_to_string(preprocessed_image, lang='rus+eng')
 
             doc = Document()
@@ -57,10 +56,9 @@ class JpegToDocConverter:
                 self.label.config(text=f"Результат сохранен в {save_path}")
                 self.file_saved = True
 
-    def preprocess_image(self, image):
+    def preprocess_image(self, image_path):
+        image = Image.open(image_path)
         image = image.convert("L")
-        enhancer = ImageEnhance.Contrast(image)
-        image = enhancer.enhance(2.0)
         image = image.filter(ImageFilter.GaussianBlur(radius=0.3))
         return image
 
